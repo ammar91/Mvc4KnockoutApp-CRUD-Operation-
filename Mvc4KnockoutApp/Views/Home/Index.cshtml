@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<link href="~/Content/KoGrid.css" rel="stylesheet" />
+<style>
+    .gridStyle {
+        border: 1px solid rgb(212,212,212);
+        height: 300px;
+    }
+</style>
+
+<button class="btn btn-primary" data-bind="click:addNewContact, visible:isListView">Create New</button>
+
+<div class="gridStyle" data-bind="koGrid: gridOptions, visible:isListView"></div>
+
+@*Create/Edit Contact*@
+<form style="display: none;" class="form-horizontal" data-bind="visible: !isListView()">
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="orgType">Organization Type</label>
+        <div class="col-sm-9">
+            <select id="orgType" name="orgType" class="form-control" data-bind="value: contact.orgType">
+                <option>Type 1</option>
+                <option>Type 2</option>
+                <option>Type 3</option>
+                <option>Type 4</option>
+                <option>Type 5</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="orgName">Organization Name</label>
+        <div class="col-sm-9">
+            <input id="orgName" name="orgName" class="form-control" type="text" placeholder="Organization Name"
+                   data-bind="textInput: contact.orgName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="contactName">Contact Name</label>
+        <div class="col-sm-9">
+            <input id="contactName" name="contactName" class="form-control" type="text" placeholder="Contact Name"
+                   data-bind="textInput: contact.contactName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="jobTitle">Job Title</label>
+        <div class="col-sm-9">
+            <input id="jobTitle" name="jobTitle" class="form-control" type="text" placeholder="Job Title"
+                   data-bind="textInput: contact.jobTitle" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="email">Email</label>
+        <div class="col-sm-9">
+            <input id="email" name="email" class="form-control" type="email" placeholder="Email Address"
+                   data-bind="textInput: contact.email" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="active">Active</label>
+        <div class="col-sm-9">
+            <label class="radio inline">
+                <input name="active" type="radio" data-bind="checked: contact.active, checkedValue: true" />
+                Yes
+            </label>
+            <label class="radio inline">
+                <input name="active" type="radio" data-bind="checked: contact.active, checkedValue: false" />
+                No
+            </label>
+             
+        </div>
+    </div>
+    <div class="form-group">
+        <input data-bind="click: contactButtonText()=='Create' ? saveNewContact : updateContact, value: contactButtonText" class="btn btn-primary col-md-offset-2" type="button" />
+        <input data-bind="click:cancelChanges" class="btn btn-danger" type="button" value="Cancel" />
+    </div>
+</form>
+
+@section scripts
+{
+    <script src="~/Scripts/koGrid-2.1.1.debug.js"></script>
+    <script src="~/Scripts/contacts.js"></script>
+}
